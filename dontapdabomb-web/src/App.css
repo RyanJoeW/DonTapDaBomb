@@ -1,0 +1,72 @@
+.main-container{
+  width: 585px;
+  height: fit-content;
+  margin-left: 100px;
+
+}
+
+h3{
+  color: blueviolet
+}
+
+.add-panel{
+  width: 585px;
+  height: 60px;
+  border: 1px solid;
+
+}
+
+.searchinput{
+  margin-top:15px;
+  border: 1px solid;
+  border-radius: 15px;
+  height: 25px;
+  width: 210px;
+  background-color: aliceblue;
+
+}
+
+.addpaneldiv{
+  margin-left:5px;
+  display: inline-block;
+}
+
+.addpanelinput{
+  border: 1px solid;
+  border-radius: 5px;
+  height: 25px;
+  width: 140px;
+  background-color: aliceblue;
+}
+
+.addBtn{
+  border: 1px;
+  border-radius: 5px;
+  font-size: 11px;
+  line-height: 15px;
+  margin-left:5px;
+  width: 60px;
+  background-color: rgb(22, 209, 22);
+}
+
+.cancelBtn{
+  border: 1px;
+  border-radius: 5px;
+  font-size: 11px;
+  line-height: 15px;
+  margin-left: 5px;
+  width: 60px;
+  background-color: rgb(134, 49, 49);
+}
+
+.table{
+  width: 585px;
+  height: fit-content;
+  border: 1px solid;
+  border-collapse: collapse;
+  margin-left: 75px;
+}
+
+
+
+
