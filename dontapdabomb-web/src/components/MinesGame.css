@@ -1,0 +1,46 @@
+.game-container {
+  text-align: center;
+  color: white;
+}
+
+.start-panel {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  margin: 0 auto;
+  gap: 10px;
+}
+
+.start-panel input {
+  padding: 6px;
+  border-radius: 6px;
+  border: none;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 60px);
+  gap: 8px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.cell {
+  width: 60px;
+  height: 60px;
+  font-size: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.cell.revealed {
+  background-color: #2e2e2e;
+  color: white;
+}
+
+.reset-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
