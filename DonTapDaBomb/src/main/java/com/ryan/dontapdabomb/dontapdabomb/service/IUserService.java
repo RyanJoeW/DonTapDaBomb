@@ -4,7 +4,7 @@ import com.ryan.dontapdabomb.dontapdabomb.entity.User;
 
 import java.util.List;
 
-public interface UserService {
+public interface IUserService {
 
     List<User> getAllUsers();
     User getUserById(Long userId);
