@@ -21,10 +21,10 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: 🏗️ Build backend (Spring Boot)
+    - name: 🏗️ Build and test backend (Spring Boot)
       working-directory: ./DonTapDaBomb
       run: |
-        ./mvnw clean package -DskipTests || mvn clean package -DskipTests
+        ./mvnw clean verify || mvn clean verify
 
     # === Frontend (React) ===
     - name: 🧰 Set up Node.js
