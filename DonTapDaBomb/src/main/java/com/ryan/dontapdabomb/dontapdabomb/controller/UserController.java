@@ -1,6 +1,6 @@
 package com.ryan.dontapdabomb.dontapdabomb.controller;
 
-import com.ryan.dontapdabomb.dontapdabomb.service.UserService;
+import com.ryan.dontapdabomb.dontapdabomb.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ public class UserController {
 
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {

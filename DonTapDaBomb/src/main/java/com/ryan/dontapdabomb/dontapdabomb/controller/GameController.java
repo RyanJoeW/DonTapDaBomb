@@ -1,7 +1,7 @@
 package com.ryan.dontapdabomb.dontapdabomb.controller;
 
 import com.ryan.dontapdabomb.dontapdabomb.entity.Game;
-import com.ryan.dontapdabomb.dontapdabomb.service.GameService;
+import com.ryan.dontapdabomb.dontapdabomb.service.IGameService;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/games")
 public class GameController {
 
-    private final GameService gameService;
+    private final IGameService gameService;
 
-    public GameController(GameService gameService) {
+    public GameController(IGameService gameService) {
         this.gameService = gameService;
     }
 
