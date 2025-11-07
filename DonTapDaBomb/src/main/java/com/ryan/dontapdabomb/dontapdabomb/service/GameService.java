@@ -85,4 +85,5 @@ public class GameService implements IGameService {
         // bij cashout behouden we huidige profit
         return gameRepository.save(game);
     }
+    // klijne test voor ci
 }
