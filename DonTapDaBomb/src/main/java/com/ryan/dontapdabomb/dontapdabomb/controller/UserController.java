@@ -53,5 +53,5 @@ public class UserController {
         return ResponseEntity.ok(deleteMsg);
     }
 
-
+// test voor ci of het alleen in master werkt
 }
