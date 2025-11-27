@@ -42,9 +42,9 @@ class UserServiceTest {
     @Test
     void getAllUsers_ShouldReturnListOfUsers() {
         // Arrange
-//         User user1 = new User(1L, "Test1","testpassword", 100);
+         User user1 = new User(1L, "Test1","testpassword", 100);
         User user2 = new User(1L, "Test2", "testpassword", 100);
-        //when(userRepository.findAll()).thenReturn(Arrays.asList(user1, user2));
+        when(userRepository.findAll()).thenReturn(Arrays.asList(user1, user2));
 
         // Act
         List<User> users = userService.getAllUsers();
