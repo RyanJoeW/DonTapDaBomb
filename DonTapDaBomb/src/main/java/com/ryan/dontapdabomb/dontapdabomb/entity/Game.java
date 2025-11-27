@@ -3,6 +3,7 @@ package com.ryan.dontapdabomb.dontapdabomb.entity;
 
 import jakarta.persistence.*;
 import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "games")
@@ -51,4 +52,17 @@ public class Game {
     public void setOpenedCells(List<Integer> openedCells) { this.openedCells = openedCells; }
     public List<Boolean> getMines() { return mines; }
     public void setMines(List<Boolean> mines) { this.mines = mines; }
+
+    @Transient
+    public List<String> getRevealedCells() {
+        List<String> revealedCells = new ArrayList<>();
+        for (int i = 0; i < boardSize; i++) {
+            if (openedCells.contains(i)) {
+                revealedCells.add(mines.get(i) ? "M" : "C"); // M = mine, C = crystal
+            } else {
+                revealedCells.add(null); // nog niet open
+            }
+        }
+        return revealedCells;
+    }
 }

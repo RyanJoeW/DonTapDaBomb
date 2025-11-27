@@ -119,8 +119,8 @@ function RegisterPage() {
         </div>
 
         <button className="addBtn" onClick={addUser}>Add</button>
-        <button
-          className="cancelBtn"
+
+        <button className="cancelBtn"
           onClick={() => {
             setName('')
             setCash('')

@@ -53,5 +53,24 @@ public class UserController {
         return ResponseEntity.ok(deleteMsg);
     }
 
-// test voor ci of het alleen in master werkt
+
+//    @PostMapping("/login")
+//    public ResponseEntity<User> login(@RequestBody LoginRequest request) {
+//        User user = userService.getAllUsers().stream()
+//                .filter(u -> u.getName().equals(request.getName()) &&
+//                        u.getPassword().equals(request.getPassword()))
+//                .findFirst()
+//                .orElse(null);
+//
+//        if (user == null) {
+//            return ResponseEntity.status(401).build(); // Unauthorized
+//        }
+//        return ResponseEntity.ok(user);
+//    }
+//
+//    public static class LoginRequest {
+//        private String name;
+//        private String password;
+//        // getters & setters
+//    }
 }
