@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +19,9 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
+
+@SpringBootTest
+@AutoConfigureMockMvc
 
 class UserServiceTest {
 
@@ -27,15 +33,18 @@ class UserServiceTest {
 
     @BeforeEach
     void setUp() {
+
         MockitoAnnotations.openMocks(this);
+
+
     }
 
     @Test
     void getAllUsers_ShouldReturnListOfUsers() {
         // Arrange
-        User user1 = new User(1L, "Test1", "testpassword", 100);
+//         User user1 = new User(1L, "Test1","testpassword", 100);
         User user2 = new User(1L, "Test2", "testpassword", 100);
-        when(userRepository.findAll()).thenReturn(Arrays.asList(user1, user2));
+        //when(userRepository.findAll()).thenReturn(Arrays.asList(user1, user2));
 
         // Act
         List<User> users = userService.getAllUsers();
