@@ -42,6 +42,7 @@ function MinesGame() {
     });
 
     setGame(res.data);
+      setRevealed((prev) => [...prev, index]);
   } catch (err) {
     console.error('Error opening cell:', err);
   }
