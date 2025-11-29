@@ -14,19 +14,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      # --- Code ophalen ---
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # --- Java instellen ---
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Run Checkstyle (non-blocking)
+      # --- Checkstyle (non-blocking + warnings) ---
+      - name: Run Checkstyle (non-blocking with warnings)
         working-directory: ./DonTapDaBomb
-        run: mvn checkstyle:check -Dcheckstyle.failOnViolation=false
+        run: |
+          mvn checkstyle:check -Dcheckstyle.failOnViolation=false || true
 
+          # XML report check (print warning in GitHub UI)
+          if [ -f "target/checkstyle-result.xml" ]; then
+            if grep -q "<error " target/checkstyle-result.xml; then
+              echo "::warning::Checkstyle found code style issues (zie output hierboven)"
+            fi
+          fi
+
+      # --- Maven tests + build ---
       - name: Build & Test Backend
         working-directory: ./DonTapDaBomb
         run: mvn clean verify
@@ -40,14 +53,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      # --- Code ophalen ---
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # --- Node instellen ---
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
+      # --- Install + Build ---
       - name: Install & Build Frontend
         working-directory: ./dontapdabomb-web
         run: |
