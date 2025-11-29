@@ -11,23 +11,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: 📥 Checkout repository
+    - name: Checkout repository (code ophalen)
       uses: actions/checkout@v4
 
     # === Backend (Spring Boot) ===
-    - name: ☕ Set up JDK 17
+    - name: Set up JDK 17 (java instaleren)
       uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: 🏗️ Build and test backend (Spring Boot)
+    - name: Build and test backend (Spring Boot)
       working-directory: ./DonTapDaBomb
       run: |
         ./mvnw clean verify || mvn clean verify
 
     # === Frontend (React) ===
-    - name: 🧰 Set up Node.js
+    - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '20'
