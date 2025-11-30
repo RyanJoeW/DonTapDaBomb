@@ -101,7 +101,7 @@ function MinesGame() {
                 onClick={() => handleCellClick(i)}
               >
                 {revealed.includes(i)
-                  ? game.revealedCells?.[i] === 'M'
+                  ? game.mines[i] === true
                     ? '💣'
                     : '💎'
                   : '?'}
