@@ -17,6 +17,8 @@ public class Game {
     private int numMines;      // aantal mijnen
     private boolean isActive;  // of het spel nog bezig is
     private double profit;     // winst tot nu toe
+    private double betAmount; //wat er ingezet word
+    private double multiplier; // hoeveel het bet amount word gemultiplied
 
     @ElementCollection
     private List<Integer> openedCells; // welke cellen al open zijn
@@ -51,4 +53,9 @@ public class Game {
     public void setOpenedCells(List<Integer> openedCells) { this.openedCells = openedCells; }
     public List<Boolean> getMines() { return mines; }
     public void setMines(List<Boolean> mines) { this.mines = mines; }
+    public double getBetAmount() { return betAmount; }
+    public void setBetAmount(double betAmount) { this.betAmount = betAmount; }
+
+    public double getMultiplier() { return multiplier; }
+    public void setMultiplier(double multiplier) { this.multiplier = multiplier; }
 }
