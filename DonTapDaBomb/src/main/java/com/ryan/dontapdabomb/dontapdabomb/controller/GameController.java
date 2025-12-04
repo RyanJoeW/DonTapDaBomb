@@ -17,7 +17,7 @@ public class GameController {
 
     @PostMapping("/start")
     public Game startGame(@RequestBody StartGameRequest request) {
-        return gameService.startGame(request.getPlayerName(), request.getBoardSize(), request.getNumMines());
+        return gameService.startGame(request.getPlayerName(), request.getBoardSize(), request.getNumMines(), request.getBetAmount());
     }
 
     @PostMapping("/open")
@@ -34,6 +34,7 @@ public class GameController {
         private String playerName;
         private int boardSize;
         private int numMines;
+        private double betAmount;
 
         // getters/setters
         public String getPlayerName() { return playerName; }
@@ -42,6 +43,8 @@ public class GameController {
         public void setBoardSize(int boardSize) { this.boardSize = boardSize; }
         public int getNumMines() { return numMines; }
         public void setNumMines(int numMines) { this.numMines = numMines; }
+        public double getBetAmount() { return betAmount; }
+        public void setBetAmount(double betAmount) { this.betAmount = betAmount; }
     }
 
     public static class OpenCellRequest {
