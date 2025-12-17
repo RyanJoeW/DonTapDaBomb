@@ -2,15 +2,18 @@ import { useState } from 'react'
 import axios from 'axios'
 import './MinesGame.css'
 
+
 function MinesGame() {
   const [playerName, setPlayerName] = useState('')
+  const [betAmount, setBetAmount] = useState(1);
   const [boardSize, setBoardSize] = useState(25)
   const [numMines, setNumMines] = useState(5)
   const [game, setGame] = useState(null)
   const [revealed, setRevealed] = useState([]) // houdt bij welke cellen aangeklikt zijn
 
   // 🔹 Start nieuw spel
-  const startGame = async () => {
+    const startGame = async () => {
+        console.log("START CLICKED");
     if (!playerName) {
       alert('Enter your name!')
       return
@@ -21,6 +24,8 @@ function MinesGame() {
         playerName,
         boardSize,
         numMines,
+        betAmount,
+
       })
       setGame(res.data)
       setRevealed([]) // reset revealed cells
@@ -84,14 +89,23 @@ function MinesGame() {
             onChange={(e) => setNumMines(Number(e.target.value))}
           />
 
+            <label>Bet Amount</label>
+            <input
+                type="number"
+                value={betAmount}
+                onChange={(e) => setBetAmount(Number(e.target.value))}
+            />
+
           <button onClick={startGame}>Start Game</button>
         </div>
       ) : (
         // Game board
         <div className="game-board">
-          <h3>Player: {game.playerName}</h3>
-          <p>Profit: {game.profit}</p>
-          <p>Status: {game.active ? '🟢 Active' : '🔴 Game Over'}</p>
+            <h3>Player: {game.playerName}</h3>
+            <p>Bet: {game.betAmount}</p>
+            <p>Profit: {game.profit.toFixed(2)}</p>
+            <p>Multiplier: {game.multiplier.toFixed(2)}</p>
+            <p>Status: {game.active ? '🟢 Active' : '🔴 Game Over'}</p>
 
           <div className="grid">
             {Array.from({ length: game.boardSize }).map((_, i) => (
@@ -101,7 +115,7 @@ function MinesGame() {
                 onClick={() => handleCellClick(i)}
               >
                 {revealed.includes(i)
-                  ? game.revealedCells?.[i] === 'M'
+                  ? game.mines[i] === true
                     ? '💣'
                     : '💎'
                   : '?'}

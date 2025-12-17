@@ -17,7 +17,8 @@ public class GameService implements IGameService {
     }
 
     @Override
-    public Game startGame(String playerName, int boardSize, int numMines) {
+    public Game startGame(String playerName, int boardSize, int numMines, double betAmount) {
+        System.out.println("➡️ startGame reached");
         Game game = new Game(playerName, boardSize, numMines);
 
         List<Boolean> mines = new ArrayList<>();
@@ -37,7 +38,10 @@ public class GameService implements IGameService {
         game.setOpenedCells(new ArrayList<>());
         game.setProfit(0.0);
         game.setActive(true);
+        game.setBetAmount(betAmount);
+        game.setMultiplier(1.0);
 
+        System.out.println("➡️ startGame returned successfully");
         return gameRepository.save(game);
     }
 
@@ -58,21 +62,33 @@ public class GameService implements IGameService {
             throw new RuntimeException("Cell already opened");
         }
 
-        opened.add(cellIndex);
 
-        // check mijn
+        opened.add(cellIndex);
+        game.setOpenedCells(opened);
+
         boolean mine = game.getMines().get(cellIndex);
         if (mine) {
-            game.setActive(false); // game over
+            game.setActive(false);
             game.setProfit(0.0);
-        } else {
-            // simpele multiplier logica: winst = aantal open vakjes
-            game.setProfit(opened.size() * 1.0);
+            return gameRepository.save(game);
         }
 
-        game.setOpenedCells(opened);
+        int totalSafe = game.getBoardSize() - game.getNumMines();
+        int openedSafe = opened.size();
+        int remainingSafe = totalSafe - openedSafe;
+        int remainingClosed = game.getBoardSize() - openedSafe;
+
+        double chanceSafe = (double) remainingSafe / remainingClosed;
+        double multiplier = 1.0 / chanceSafe;
+
+        game.setMultiplier(multiplier);
+
+        double profit = game.getBetAmount() * multiplier;
+        game.setProfit(profit);
+
         return gameRepository.save(game);
     }
+
 
     @Override
     public Game cashOut(Long gameId) {
