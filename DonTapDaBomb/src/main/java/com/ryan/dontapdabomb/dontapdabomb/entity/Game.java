@@ -9,44 +9,46 @@ import java.util.List;
 public class Game {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
-    private String playerName;
-    private int boardSize;     // totaal aantal vakjes
-    private int numMines;      // aantal mijnen
-    private boolean isActive;  // of het spel nog bezig is
-    private double profit;     // winst tot nu toe
-    private double betAmount; //wat er ingezet word
-    private double multiplier; // hoeveel het bet amount word gemultiplied
+    private int boardSize;
+    private int numMines;
+    private double betAmount;
+    private double profit;
+    private double multiplier;
+    private boolean active;
+
+    @ManyToOne
+    private User user;
 
     @ElementCollection
-    private List<Integer> openedCells; // welke cellen al open zijn
+    private List<Integer> openedCells;
 
     @ElementCollection
-    private List<Boolean> mines; // true = mijn aanwezig
+    private List<Boolean> mines;
+
 
     public Game() {}
 
     // constructor voor nieuwe games
-    public Game(String playerName, int boardSize, int numMines) {
-        this.playerName = playerName;
+    public Game(int boardSize, int numMines) {
         this.boardSize = boardSize;
         this.numMines = numMines;
-        this.isActive = true;
+        this.active = true;
         this.profit = 0.0;
     }
 
     // getters en setters
     public Long getId() { return id; }
-    public String getPlayerName() { return playerName; }
-    public void setPlayerName(String playerName) { this.playerName = playerName; }
+    public User getUser() {return user;}
+    public void setUser(User user) {this.user = user;}
     public int getBoardSize() { return boardSize; }
     public void setBoardSize(int boardSize) { this.boardSize = boardSize; }
     public int getNumMines() { return numMines; }
     public void setNumMines(int numMines) { this.numMines = numMines; }
-    public boolean isActive() { return isActive; }
-    public void setActive(boolean active) { isActive = active; }
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
     public double getProfit() { return profit; }
     public void setProfit(double profit) { this.profit = profit; }
     public List<Integer> getOpenedCells() { return openedCells; }
