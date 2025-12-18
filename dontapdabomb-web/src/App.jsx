@@ -3,6 +3,7 @@ import HomePage from './pages/HomePage'
 import RegisterPage from './pages/RegisterPage'
 import MinesPage from './pages/MinesPage'
 import MinesGame from './components/MinesGame' // ✅ voeg dit toe
+import Leaderboard from './components/Leaderboard.jsx'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Link to="/home" style={{ marginRight: '10px' }}>🏠 Home</Link>
           <Link to="/register" style={{ marginRight: '10px' }}>🧍 Register</Link>
           <Link to="/mines">💣 Mines</Link>
+          <Link to="/leaderboard" style={{ marginLeft: '10px' }}>🏆 Leaderboard</Link>
         </nav>
 
         {/* Routes (pagina's) */}
@@ -22,7 +24,8 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/mines" element={<MinesPage />} />
-          <Route path="/mines/game" element={<MinesGame />} /> {/* ✅ nieuwe route */}
+          <Route path="/mines/game" element={<MinesGame />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
         </Routes>
       </div>
     </Router>

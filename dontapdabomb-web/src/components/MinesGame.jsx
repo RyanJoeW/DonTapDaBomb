@@ -4,8 +4,9 @@ import './MinesGame.css'
 
 
 function MinesGame() {
-  const [playerName, setPlayerName] = useState('')
+  const [username, setUsername] = useState('')
   const [betAmount, setBetAmount] = useState(1);
+  const [password, setPassword] = useState('')
   const [boardSize, setBoardSize] = useState(25)
   const [numMines, setNumMines] = useState(5)
   const [game, setGame] = useState(null)
@@ -14,24 +15,38 @@ function MinesGame() {
   // 🔹 Start nieuw spel
     const startGame = async () => {
         console.log("START CLICKED");
-    if (!playerName) {
-      alert('Enter your name!')
-      return
-    }
+        if (!username || !password) {
+            alert('Enter username and password!')
+            return
+        }
+
+
 
     try {
-      const res = await axios.post('http://localhost:8080/games/start', {
-        playerName,
-        boardSize,
-        numMines,
-        betAmount,
-
-      })
+        const res = await axios.post('http://localhost:8080/games/start', {
+            username,
+            password,
+            boardSize,
+            numMines,
+            betAmount,
+        })
       setGame(res.data)
       setRevealed([]) // reset revealed cells
       console.log('✅ Game started:', res.data)
     } catch (err) {
-      console.error('❌ Error starting game:', err)
+        console.error('❌ Error starting game:', err)
+
+        if (err.response && err.response.data) {
+            if (typeof err.response.data === 'string') {
+                alert(err.response.data)
+            } else if (err.response.data.message) {
+                alert(err.response.data.message)
+            } else {
+                alert('Error starting game')
+            }
+        } else {
+            alert('Something went wrong while starting the game')
+        }
     }
   }
 
@@ -54,11 +69,26 @@ function MinesGame() {
   }
 };
 
+    const handleCashOut = async () => {
+        if (!game || !game.active) return;
+
+        try {
+            const res = await axios.post('http://localhost:8080/games/cashout', {
+                gameId: game.id,
+            });
+
+            setGame(res.data);
+            alert('Cashout successful!');
+        } catch (err) {
+            console.error('Error during cashout:', err);
+            alert('Cashout failed');
+        }
+    };
   // 🔹 Restart knop
   const restartGame = () => {
     setGame(null)
     setRevealed([])
-    setPlayerName('')
+    setUsername('')
   }
 
   return (
@@ -68,19 +98,29 @@ function MinesGame() {
       {!game ? (
         // Start panel
         <div className="start-panel">
-          <label>Player Name</label>
-          <input
-            type="text"
-            value={playerName}
-            onChange={(e) => setPlayerName(e.target.value)}
-          />
+            <label>Username</label>
+            <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+            />
 
-          <label>Board Size</label>
-          <input
-            type="number"
-            value={boardSize}
-            onChange={(e) => setBoardSize(Number(e.target.value))}
-          />
+            <label>Password</label>
+            <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <label>Board Size</label>
+            <select
+                value={boardSize}
+                onChange={(e) => setBoardSize(Number(e.target.value))}
+            >
+                <option value={9}>3 x 3</option>
+                <option value={16}>4 x 4</option>
+                <option value={25}>5 x 5</option>
+            </select>
 
           <label>Number of Mines</label>
           <input
@@ -106,6 +146,11 @@ function MinesGame() {
             <p>Profit: {game.profit.toFixed(2)}</p>
             <p>Multiplier: {game.multiplier.toFixed(2)}</p>
             <p>Status: {game.active ? '🟢 Active' : '🔴 Game Over'}</p>
+            {game.active && (
+                <button onClick={handleCashOut} className="cashout-btn">
+                    💰 Cash Out
+                </button>
+            )}
 
           <div className="grid">
             {Array.from({ length: game.boardSize }).map((_, i) => (
