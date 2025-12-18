@@ -1,6 +1,7 @@
 package com.ryan.dontapdabomb.dontapdabomb.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import jakarta.persistence.*;
 import jdk.jfr.DataAmount;
@@ -17,7 +18,7 @@ public class User {
     private Long id;
 
     private String name;
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private int cash;
 
