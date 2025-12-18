@@ -28,6 +28,11 @@ public class UserController {
 
     @PostMapping("/users")
     public ResponseEntity<User> createUser(@RequestBody User user) {
+        System.out.println("DEBUG CREATE USER");
+        System.out.println("name = " + user.getName());
+        System.out.println("password = " + user.getPassword());
+        System.out.println("cash = " + user.getCash());
+
         return ResponseEntity.ok(userService.addUser(user));
     }
 
