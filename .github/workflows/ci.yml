@@ -73,7 +73,7 @@ jobs:
     needs: [backend, frontend]
 
     # alleen op main
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
 
     permissions:
       contents: read
