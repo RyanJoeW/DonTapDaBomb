@@ -4,6 +4,7 @@ import com.ryan.dontapdabomb.dontapdabomb.entity.User;
 import com.ryan.dontapdabomb.dontapdabomb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 

@@ -19,7 +19,6 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(5, 60px);
   gap: 8px;
   justify-content: center;
   margin-top: 20px;

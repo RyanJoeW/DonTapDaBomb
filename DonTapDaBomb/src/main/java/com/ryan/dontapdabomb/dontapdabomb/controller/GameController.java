@@ -14,7 +14,7 @@ public class GameController {
     public GameController(IGameService gameService) {
         this.gameService = gameService;
     }
-                                                    
+         //test voor merge
     @PostMapping("/start")
     public Game startGame(@RequestBody StartGameRequest request) {
         return gameService.startGame(request.getUsername(), request.getPassword(), request.getBoardSize(), request.getNumMines(), request.getBetAmount());

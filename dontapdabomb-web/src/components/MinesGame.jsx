@@ -11,6 +11,7 @@ function MinesGame() {
   const [numMines, setNumMines] = useState(5)
   const [game, setGame] = useState(null)
   const [revealed, setRevealed] = useState([]) // houdt bij welke cellen aangeklikt zijn
+  const gridSize = game ? Math.sqrt(game.boardSize) : 0;
 
   // 🔹 Start nieuw spel
     const startGame = async () => {
@@ -18,6 +19,19 @@ function MinesGame() {
         if (!username || !password) {
             alert('Enter username and password!')
             return
+        }
+
+        if (betAmount === "" || numMines === "") {
+            alert("Fill in bet amount and number of mines");
+            return;
+        }
+
+        const bet = Number(betAmount);
+        const mines = Number(numMines);
+
+        if (bet <= 0 || mines <= 0) {
+            alert("Values must be greater than 0");
+            return;
         }
 
 
@@ -123,17 +137,17 @@ function MinesGame() {
             </select>
 
           <label>Number of Mines</label>
-          <input
-            type="number"
-            value={numMines}
-            onChange={(e) => setNumMines(Number(e.target.value))}
-          />
+            <input
+                type="number"
+                value={numMines}
+                onChange={(e) => setNumMines(e.target.value)}
+            />
 
             <label>Bet Amount</label>
             <input
                 type="number"
                 value={betAmount}
-                onChange={(e) => setBetAmount(Number(e.target.value))}
+                onChange={(e) => setBetAmount(e.target.value)}
             />
 
           <button onClick={startGame}>Start Game</button>
@@ -152,21 +166,24 @@ function MinesGame() {
                 </button>
             )}
 
-          <div className="grid">
-            {Array.from({ length: game.boardSize }).map((_, i) => (
-              <button
-                key={i}
-                className={`cell ${revealed.includes(i) ? 'revealed' : ''}`}
-                onClick={() => handleCellClick(i)}
-              >
-                {revealed.includes(i)
-                  ? game.mines[i] === true
-                    ? '💣'
-                    : '💎'
-                  : '?'}
-              </button>
-            ))}
-          </div>
+            <div
+                className="grid"
+                style={{ gridTemplateColumns: `repeat(${gridSize}, 60px)` }}
+            >
+                {Array.from({ length: game.boardSize }).map((_, i) => (
+                    <button
+                        key={i}
+                        className={`cell ${revealed.includes(i) ? 'revealed' : ''}`}
+                        onClick={() => handleCellClick(i)}
+                    >
+                        {revealed.includes(i)
+                            ? game.mines[i] === true
+                                ? '💣'
+                                : '💎'
+                            : '?'}
+                    </button>
+                ))}
+            </div>
 
           {!game.active && (
             <button onClick={restartGame} className="restart-btn">
