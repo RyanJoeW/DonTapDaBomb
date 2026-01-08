@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: postgres:17
@@ -15,7 +13,7 @@ services:
       - db_data:/var/lib/postgresql/data
 
   backend:
-    image: ghcr.io/ryanjoew/dontapdabomb-backend:latest
+    image: ghcr.io/RyanJoeW/dontapdabomb-backend:latest
     container_name: dontapdabomb-backend
     restart: always
     ports:
@@ -30,7 +28,7 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
 
   frontend:
-    image: ghcr.io/ryanjoew/dontapdabomb-frontend:latest
+    image: ghcr.io/RyanJoeW/dontapdabomb-frontend:latest
     container_name: dontapdabomb-frontend
     restart: always
     ports:
@@ -47,10 +45,9 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      # check elke 60 seconden op nieuwe images
       WATCHTOWER_POLL_INTERVAL: 60
-      # update alleen containers met de enable-label
       WATCHTOWER_LABEL_ENABLE: "true"
+      WATCHTOWER_CLEANUP: "true"
 
 volumes:
   db_data:
