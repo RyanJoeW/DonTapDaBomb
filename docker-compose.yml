@@ -13,7 +13,7 @@ services:
       - db_data:/var/lib/postgresql/data
 
   backend:
-    image: ghcr.io/RyanJoeW/dontapdabomb-backend:latest
+    image: ghcr.io/ryanjoew/dontapdabomb-backend:latest
     container_name: dontapdabomb-backend
     restart: always
     ports:
@@ -28,7 +28,7 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
 
   frontend:
-    image: ghcr.io/RyanJoeW/dontapdabomb-frontend:latest
+    image: ghcr.io/ryanjoew/dontapdabomb-frontend:latest
     container_name: dontapdabomb-frontend
     restart: always
     ports:
