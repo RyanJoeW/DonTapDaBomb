@@ -14,10 +14,10 @@ public class GameController {
     public GameController(IGameService gameService) {
         this.gameService = gameService;
     }
-
+                                                    
     @PostMapping("/start")
     public Game startGame(@RequestBody StartGameRequest request) {
-        return gameService.startGame(request.getPlayerName(), request.getBoardSize(), request.getNumMines());
+        return gameService.startGame(request.getUsername(), request.getPassword(), request.getBoardSize(), request.getNumMines(), request.getBetAmount());
     }
 
     @PostMapping("/open")
@@ -31,17 +31,23 @@ public class GameController {
     }
 
     public static class StartGameRequest {
-        private String playerName;
+        private String username;
+        private String password;
         private int boardSize;
         private int numMines;
+        private double betAmount;
 
         // getters/setters
-        public String getPlayerName() { return playerName; }
-        public void setPlayerName(String playerName) { this.playerName = playerName; }
+        public String getUsername() { return username; }
+        public void setUsername(String username) { this.username = username; }
+        public String getPassword() { return password; }
+        public void setPassword(String password) { this.password = password; }
         public int getBoardSize() { return boardSize; }
         public void setBoardSize(int boardSize) { this.boardSize = boardSize; }
         public int getNumMines() { return numMines; }
         public void setNumMines(int numMines) { this.numMines = numMines; }
+        public double getBetAmount() { return betAmount; }
+        public void setBetAmount(double betAmount) { this.betAmount = betAmount; }
     }
 
     public static class OpenCellRequest {

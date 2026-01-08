@@ -1,30 +1,48 @@
 package com.ryan.dontapdabomb.dontapdabomb.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import jakarta.persistence.*;
 import jdk.jfr.DataAmount;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+
+import java.util.List;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Builder
-@Table(name = "user", schema = "dtdb")
-
+@Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "userid")
+    @GeneratedValue
     private Long id;
-    @Column(name = "name")
+
     private String name;
-    @Column(name = "password")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
-    @Column(name = "cash")
     private int cash;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Game> games;
+
+    public User() {}
+    public User (long id, String name, String password, int cash){
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.cash = cash;
+    }
+
+    public long getId() { return id; }
+    public void setId(long id) { this.id = id; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+    public int getCash() { return cash; }
+    public void setCash(int cash) { this.cash = cash; }
+    public List<Game> getGames() { return games; }
+    public void setGames(List<Game> games) { this.games = games; }
 }
+
