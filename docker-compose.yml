@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   db:
     image: postgres:17
@@ -14,8 +15,9 @@ services:
       - db_data:/var/lib/postgresql/data
 
   backend:
-    build: ./DonTapDaBomb
+    image: ghcr.io/ryanjoew/dontapdabomb-backend:latest
     container_name: dontapdabomb-backend
+    restart: always
     ports:
       - "8080:8080"
     depends_on:
@@ -24,14 +26,31 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/dontapdabomb
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
 
   frontend:
-    build: ./dontapdabomb-web
+    image: ghcr.io/ryanjoew/dontapdabomb-frontend:latest
     container_name: dontapdabomb-frontend
+    restart: always
     ports:
       - "3000:80"
     depends_on:
       - backend
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      # check elke 60 seconden op nieuwe images
+      WATCHTOWER_POLL_INTERVAL: 60
+      # update alleen containers met de enable-label
+      WATCHTOWER_LABEL_ENABLE: "true"
 
 volumes:
   db_data:
