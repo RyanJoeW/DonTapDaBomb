@@ -21,13 +21,13 @@ function MinesGame() {
             return
         }
 
-        if (betAmount === "" || numMines === "") {
+        const bet = Number(betAmount);
+        const mines = Number(numMines);
+
+        if (Number.isNaN(bet) || Number.isNaN(mines)) {
             alert("Fill in bet amount and number of mines");
             return;
         }
-
-        const bet = Number(betAmount);
-        const mines = Number(numMines);
 
         if (bet <= 0 || mines <= 0) {
             alert("Values must be greater than 0");
@@ -112,22 +112,25 @@ function MinesGame() {
       {!game ? (
         // Start panel
         <div className="start-panel">
-            <label>Username</label>
+            <label htmlFor="username">Username</label>
             <input
+                id="username"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
             />
 
-            <label>Password</label>
+            <label htmlFor="password">Password</label>
             <input
+                id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
 
-            <label>Board Size</label>
+            <label htmlFor="boardSize">Board Size</label>
             <select
+                id="boardSize"
                 value={boardSize}
                 onChange={(e) => setBoardSize(Number(e.target.value))}
             >
@@ -136,15 +139,17 @@ function MinesGame() {
                 <option value={25}>5 x 5</option>
             </select>
 
-          <label>Number of Mines</label>
+            <label htmlFor="mines">Number of Mines</label>
             <input
+                id="mines"
                 type="number"
                 value={numMines}
                 onChange={(e) => setNumMines(e.target.value)}
             />
 
-            <label>Bet Amount</label>
+            <label htmlFor="bet">Bet Amount</label>
             <input
+                id="bet"
                 type="number"
                 value={betAmount}
                 onChange={(e) => setBetAmount(e.target.value)}
