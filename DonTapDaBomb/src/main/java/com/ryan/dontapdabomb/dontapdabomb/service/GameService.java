@@ -5,8 +5,10 @@ import com.ryan.dontapdabomb.dontapdabomb.entity.User;
 import com.ryan.dontapdabomb.dontapdabomb.entity.LeaderboardEntry;
 import com.ryan.dontapdabomb.dontapdabomb.repository.GameRepository;
 import com.ryan.dontapdabomb.dontapdabomb.repository.LeaderboardEntryRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.ryan.dontapdabomb.dontapdabomb.exception .BadRequestException;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,9 @@ public class GameService implements IGameService {
                 .findFirst()
                 .orElseThrow(() -> new BadRequestException("User not found"));
 
-        if (!user.getPassword().equals(password)) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        if (!encoder.matches(password, user.getPassword())) {
             throw new BadRequestException("Wrong password");
         }
 
